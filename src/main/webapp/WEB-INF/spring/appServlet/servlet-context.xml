@@ -21,8 +21,9 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
-	<context:component-scan base-package="com.cs441.autorep" />
+	<!-- Beans for dependency injection -->
+	<beans:bean id="inventoryManager" class="com.cs441.autorep.dao.InventoryManagerImpl"/>
 	
-	
+	<context:component-scan base-package="com.cs441.autorep.controller" />
 	
 </beans:beans>
