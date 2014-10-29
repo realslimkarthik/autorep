@@ -1,4 +1,4 @@
-package com.cs441.autorep;
+package com.cs441.autorep.controller;
 
 import java.text.DateFormat;
 import java.util.Date;

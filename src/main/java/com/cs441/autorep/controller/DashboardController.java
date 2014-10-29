@@ -1,4 +1,4 @@
-package com.cs441.autorep;
+package com.cs441.autorep.controller;
 
 
 import org.slf4j.Logger;
