@@ -20,7 +20,7 @@ public class DashboardController {
 	InventoryManager inventoryManager;
 	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
-	public String home(Model model) {
+	public String home(Model model) throws Exception {
 		logger.info("Welcome to dashboard");
 		
 		System.out.println( inventoryManager.getInventory().size() );
