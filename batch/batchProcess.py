@@ -30,7 +30,7 @@ def db_check():
 
 
 def notifyBackend(resultJSON):
-    payload = {'result': resultJSON}
+    payload = json.dumps(resultJSON)
     r = requests.post("http://54.172.105.21/webservices/notify/", params=payload)
 
 if __name__ == "__main__":
