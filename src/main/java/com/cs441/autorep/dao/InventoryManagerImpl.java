@@ -20,7 +20,7 @@ public class InventoryManagerImpl implements InventoryManager{
 		ResultSet rs = ps.executeQuery();
 		
 		while(rs.next()){
-			System.out.println(rs.getString(1));
+			System.out.println(rs.getString(1)+" Connecting to DB ");
 		}
 		
 		Inventory i = new Inventory();
