@@ -6,6 +6,6 @@ import com.cs441.autorep.model.Inventory;
 
 public interface InventoryManager {
 
-	public ArrayList<Inventory> getInventory();
+	public ArrayList<Inventory> getInventory() throws Exception;
 	
 }
