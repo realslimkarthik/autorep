@@ -32,7 +32,8 @@ def db_check():
     finally:
         if con:
             con.close()
-    return notifyJSON
+    retJSON = {'data': notifyJSON}
+    return retJSON
 
 
 def notifyBackend(resultJSON):
