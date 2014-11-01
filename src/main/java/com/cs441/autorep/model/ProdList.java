@@ -11,27 +11,24 @@ public class ProdList implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@JsonProperty("product")
-	private String productId;
+	private String count;
 	
-	@JsonProperty("count")
-	private int count;
-	
-	public String getProductId() {
-		return productId;
-	}
-	
-	@JsonProperty("product")
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
-	public int getCount() {
+	private String product;
+
+	public String getCount() {
 		return count;
 	}
-	
-	@JsonProperty("count")
-	public void setCount(int count) {
+
+	public void setCount(String count) {
 		this.count = count;
+	}
+
+	public String getProduct() {
+		return product;
+	}
+
+	public void setProduct(String product) {
+		this.product = product;
 	}
 	
 }
