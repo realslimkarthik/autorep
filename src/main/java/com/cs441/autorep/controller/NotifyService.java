@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cs441.autorep.interfaces.Notify;
-import com.cs441.autorep.model.Data;
-import com.cs441.autorep.model.ProdList;
 import com.cs441.autorep.model.SuggestionJson;
 import com.cs441.autorep.model.Suggestions;
 import com.google.gson.Gson;

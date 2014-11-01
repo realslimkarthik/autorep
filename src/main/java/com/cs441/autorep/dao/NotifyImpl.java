@@ -3,7 +3,6 @@ package com.cs441.autorep.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 import com.cs441.autorep.interfaces.Notify;
 import com.cs441.autorep.model.Suggestions;
