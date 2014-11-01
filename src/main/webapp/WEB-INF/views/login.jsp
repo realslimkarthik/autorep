@@ -8,7 +8,7 @@
 </head>
 <body>
 <center>
-<h1>Warehouse Auto Replenishment</h1>
+<h1>AutoRep</h1>
 <form name='something' action='login' method='post'>
 
 User Name :<input type='text' name='username' /><br><br>
