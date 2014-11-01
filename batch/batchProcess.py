@@ -2,23 +2,25 @@ import MySQLdb as mdb
 import sys
 import requests
 import json
-#threshold = 100
+import config as cf
 
 def db_check():
     notifyJSON = {}
     try:
-        con = mdb.connect('localhost', 'root', '', 'autorep')
+        con = mdb.connect(cf.HOST, cf.USERNAME, cf.PASSWORD, cf.DATABASE)
         cur = con.cursor()
         cur.execute("SELECT ID FROM STORE")
         stores = cur.fetchall()
         cur.execute("SELECT ID, MINSHELFQUANTITY FROM PRODUCT")
         productList = cur.fetchall()
         for i in stores:
+            notifyJSON[str(i[0])] = []
             for j in productList:
-                cur.execute("SELECT COUNT(" + j[0] + ") FROM SKU WHERE STORE_ID=" + i[0])
+                cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]) + " AND PRODUCT_ID=" + str(j[0]))
                 pIDCount = cur.fetchall()
-                if pIDCount[0] < j[1]:
-                    notifyJSON[i].append(j[0])
+                if pIDCount[0][0] < j[1]:
+                    suggObj = {str(j[0]): str(j[1] - pIDCount[0][0])}
+                    notifyJSON[str(i[0])].append(suggObj)
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
@@ -27,11 +29,13 @@ def db_check():
     finally:
         if con:
             con.close()
+    return notifyJSON
 
 
 def notifyBackend(resultJSON):
     payload = json.dumps(resultJSON)
-    r = requests.post("http://54.172.105.21/webservices/notify/", params=payload)
+    r = requests.post("http://54.172.105.21/notify/", params=payload)
+    print r.status_code
 
 if __name__ == "__main__":
     resultJSON = db_check()
