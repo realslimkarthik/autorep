@@ -12,7 +12,7 @@
 <form name='something' action='login' method='post'>
 
 User Name :<input type='text' name='username' /><br><br>
-Password &nbsp;&nbsp;&nbsp; :<input type='text' name='password' /><br><br>
+Password &nbsp;&nbsp;&nbsp; :<input type='password' name='password' /><br><br>
 <input type='submit' name='action' value='Login' />
 
 </form>
