@@ -18,7 +18,6 @@ def db_check():
             for j in productList:
                 cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]) + " AND PRODUCT_ID=" + str(j[0]))
                 pIDCount = cur.fetchall()
-                print str(i[0]) + ' has ' + str(j[0]) + ' in the store with ' + str(j[1] - pIDCount[0][0]) + ' items'
                 if pIDCount[0][0] < j[1]:
                     suggObj = {str(j[0]): str(j[1] - pIDCount[0][0])}
                     notifyJSON[str(i[0])].append(suggObj)
@@ -40,5 +39,4 @@ def notifyBackend(resultJSON):
 
 if __name__ == "__main__":
     resultJSON = db_check()
-    print resultJSON
     notifyBackend(resultJSON)
