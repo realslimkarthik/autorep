@@ -17,6 +17,8 @@ public class NotifyImpl implements Notify{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		PreparedStatement insertPs = null;
+		PreparedStatement deletePs = null;
 
 		try {
 
@@ -25,6 +27,8 @@ public class NotifyImpl implements Notify{
 			for(int i=0; i<suggestions.length; i++){
 				
 				int storeId = Integer.parseInt(suggestions[i].getStore());
+				
+				System.out.println("#Processing for Store: "+storeId);
 				
 				for(int j=0; j<suggestions[i].getProdList().length; j++){
 					
@@ -65,8 +69,37 @@ public class NotifyImpl implements Notify{
 						sku.setNote(rs.getString(11));
 						sku.setVendorId(rs.getInt(12));
 						
+						insertPs = con.prepareStatement("INSERT INTO `autorep`.`repsuggestions` "
+								+ "(`id`,`Product_id`,`Store_id`,`packSize`,`expiryDate`,`discount`,"
+								+ "`dateOfMf`,`mrp`,`unitPrice`,`weight`,`note`,`Vendor_id`,`Warehouse_id`)"
+								+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+						
+						insertPs.setInt(1, sku.getSkuId());
+						insertPs.setInt(2, sku.getProductId());
+						insertPs.setInt(3, sku.getStoreId());
+						insertPs.setInt(4, sku.getPackSize());
+						insertPs.setDate(5, sku.getExpiryDate());
+						insertPs.setInt(6, sku.getDiscount());
+						insertPs.setDate(7, sku.getDateOfMf());
+						insertPs.setInt(8, sku.getMrp());
+						insertPs.setInt(9, sku.getUnitPrice());
+						insertPs.setInt(10, sku.getWeight());
+						insertPs.setString(11, sku.getNote());
+						insertPs.setInt(12, sku.getVendorId());
+						insertPs.setInt(13, sku.getWarehouseId());
+						
+						insertPs.executeUpdate();
+						
 						System.out.println("-- Warehouse SKU `"+sku.getSkuId()+"` is being replenished to store `"+sku.getStoreId()+"`."
 								+ " It has product `"+sku.getProductId()+"` --");
+						
+						deletePs = con.prepareStatement("DELETE from `autorep`.`warehousesku` where id=?");
+						deletePs.setInt(1, sku.getSkuId());
+						
+						deletePs.executeUpdate();
+						
+						System.out.println("*** Warehouse SKU `"+sku.getSkuId()+"` has been deleted");
+						
 					}
 
 				}
@@ -75,8 +108,14 @@ public class NotifyImpl implements Notify{
 		}
 		finally{
 			con.close();
+			if(null != con)
 			ps.close();
+			if(null != ps)
 			rs.close();
+			if(null != insertPs)
+			insertPs.close();
+			if(null != deletePs)
+			deletePs.close();
 		}
 		return null;
 	}

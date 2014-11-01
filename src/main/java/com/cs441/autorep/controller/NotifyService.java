@@ -37,7 +37,7 @@ public class NotifyService {
         
         Suggestions[] s = suggestions.getData().getSuggestions();
         
-       /* for(int i=0; i<s.length; i++){
+        for(int i=0; i<s.length; i++){
         	String storeId = s[i].getStore();
         	System.out.println(storeId);
         	
@@ -48,7 +48,7 @@ public class NotifyService {
         		System.out.println("\t"+product);
         		System.out.println("\t"+count);
         	}
-        } */
+        } 
 	    
         notify.insertToRepSuggestions(s);
         
