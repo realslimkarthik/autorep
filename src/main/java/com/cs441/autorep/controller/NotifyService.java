@@ -2,14 +2,14 @@ package com.cs441.autorep.controller;
 
 import java.net.URLDecoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cs441.autorep.model.Data;
-import com.cs441.autorep.model.ProdList;
+import com.cs441.autorep.interfaces.Notify;
 import com.cs441.autorep.model.SuggestionJson;
 import com.cs441.autorep.model.Suggestions;
 import com.google.gson.Gson;
@@ -18,6 +18,9 @@ import com.google.gson.GsonBuilder;
 
 @Controller
 public class NotifyService {
+
+	@Autowired
+	Notify notify;
 	
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	@ResponseBody
@@ -34,7 +37,7 @@ public class NotifyService {
         
         Suggestions[] s = suggestions.getData().getSuggestions();
         
-        for(int i=0; i<s.length; i++){
+       /* for(int i=0; i<s.length; i++){
         	String storeId = s[i].getStore();
         	System.out.println(storeId);
         	
@@ -45,9 +48,11 @@ public class NotifyService {
         		System.out.println("\t"+product);
         		System.out.println("\t"+count);
         	}
-        }
+        } */
 	    
-	    return "hahahaha";
+        notify.insertToRepSuggestions(s);
+        
+	    return "success";
 	    
 	}
 	
