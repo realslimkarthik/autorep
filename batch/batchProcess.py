@@ -2,12 +2,12 @@ import MySQLdb as mdb
 import sys
 import requests
 import json
-#threshold = 100
+import config as cf
 
 def db_check():
     notifyJSON = {}
     try:
-        con = mdb.connect('localhost', 'root', '', 'autorep')
+        con = mdb.connect(cf.HOST, cf.USERNAME, cf.PASSWORD, cf.DATABASE)
         cur = con.cursor()
         cur.execute("SELECT ID FROM STORE")
         stores = cur.fetchall()
@@ -15,8 +15,9 @@ def db_check():
         productList = cur.fetchall()
         for i in stores:
             for j in productList:
-                cur.execute("SELECT COUNT(" + j[0] + ") FROM SKU WHERE STORE_ID=" + i[0])
+                cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]))
                 pIDCount = cur.fetchall()
+                print str(i[0]) + ' has ' + str(j[0]) + ' number of items in store '
                 if pIDCount[0] < j[1]:
                     notifyJSON[i].append(j[0])
 
@@ -31,7 +32,8 @@ def db_check():
 
 def notifyBackend(resultJSON):
     payload = json.dumps(resultJSON)
-    r = requests.post("http://54.172.105.21/webservices/notify/", params=payload)
+    r = requests.post("http://54.172.105.21/notify/", params=payload)
+    print r.status_code
 
 if __name__ == "__main__":
     resultJSON = db_check()
