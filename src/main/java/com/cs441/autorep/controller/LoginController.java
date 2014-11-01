@@ -38,10 +38,10 @@ public class LoginController {
 		String password = request.getParameter("password");
 		DB db = (new MongoClient("54.201.247.141",27017)).getDB("products");
 		if(db.authenticate(username, password.toCharArray())){
-			return "login";
+			return "dashboard";
 		}
 		else
-			return "dashboard";
+			return "login";
 		
 		
 		

@@ -7,14 +7,15 @@
 <title>User Login</title>
 </head>
 <body>
-
+<center>
+<h1>Warehouse Auto Replenishment</h1>
 <form name='something' action='login' method='post'>
 
 User Name :<input type='text' name='username' /><br><br>
-Password  :<input type='text' name='password' /><br><br>
+Password &nbsp;&nbsp;&nbsp; :<input type='text' name='password' /><br><br>
 <input type='submit' name='action' value='Login' />
 
 </form>
-
+</center>
 </body>
 </html>
