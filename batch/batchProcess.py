@@ -38,11 +38,12 @@ def db_check():
 
 def notifyBackend(resultJSON):
     payload = json.dumps(resultJSON)
-    headers = {'content-type': 'application/json'}
-    print type(payload)
+    #headers = {'Content-Type': 'application/json', 'Accept': 'application/json'}
+    headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     print payload
-    r = requests.post("http://54.172.105.21/autorep/notify/", params=payload, headers=headers)
+    r = requests.post("http://54.172.105.21//autorep/notify/", params=payload, headers=headers)
     print r.status_code
+    print r.text
 
 if __name__ == "__main__":
     resultJSON = db_check()
