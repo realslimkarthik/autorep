@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.cs441.autorep.interfaces.InventoryManager;
 import com.cs441.autorep.interfaces.UserManager;
+import com.cs441.autorep.model.Inventory;
 
 @Controller
 public class DashboardController {
@@ -27,6 +28,9 @@ public class DashboardController {
 	@Autowired
 	UserManager userManager;
 	
+	@Autowired
+	InventoryManager inventoryManager;
+	
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView showDashboard(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("Welcome to dashboard");
@@ -35,11 +39,42 @@ public class DashboardController {
 		session.setAttribute("userId", "1");
 		
 		ArrayList<String> storeList = userManager.getUserStoreId((String)session.getAttribute("userId"));
+		String currentStore = storeList.get(0);
+		
+		session.setAttribute("currentStore",currentStore);
 		
 		ModelAndView model = new ModelAndView("dashboard");
 		model.addObject("storeList", storeList );
+		model.addObject("inventoryList",getInventoryList(currentStore));
+		model.addObject("currentStore",currentStore);
 		
 		return model;
+	}
+	
+	@RequestMapping(value = "/showInventory", method = RequestMethod.POST)
+	public ModelAndView showInventory(HttpServletRequest req, HttpServletResponse res) throws Exception {
+		logger.info("Inside showInventory method => DashboardController");
+		
+		HttpSession session = req.getSession();
+		ArrayList<String> storeList = userManager.getUserStoreId((String)session.getAttribute("userId"));
+		
+		String currentStore = req.getParameter("storeList");
+		session.setAttribute("currentStore",currentStore);
+		
+		ModelAndView model = new ModelAndView("dashboard");
+		model.addObject("storeList", storeList );
+		model.addObject("inventoryList",getInventoryList(currentStore));
+		model.addObject("currentStore",currentStore);
+		
+		return model;
+	}
+	
+	private ArrayList<Inventory> getInventoryList(String storeId) throws Exception{
+		
+		ArrayList<Inventory> inventoryList = inventoryManager.getInventory(storeId);
+		
+		return inventoryList;
+		
 	}
 	
 }
