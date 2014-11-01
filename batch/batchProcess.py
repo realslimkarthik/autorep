@@ -14,12 +14,14 @@ def db_check():
         cur.execute("SELECT ID, MINSHELFQUANTITY FROM PRODUCT")
         productList = cur.fetchall()
         for i in stores:
+            notifyJSON[str(i[0])] = []
             for j in productList:
-                cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]))
+                cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]) + " AND PRODUCT_ID=" + str(j[0]))
                 pIDCount = cur.fetchall()
-                print str(i[0]) + ' has ' + str(j[0]) + ' number of items in store '
-                if pIDCount[0] < j[1]:
-                    notifyJSON[i].append(j[0])
+                print str(i[0]) + ' has ' + str(j[0]) + ' in the store with ' + str(j[1] - pIDCount[0][0]) + ' items'
+                if pIDCount[0][0] < j[1]:
+                    suggObj = {str(j[0]): str(j[1] - pIDCount[0][0])}
+                    notifyJSON[str(i[0])].append(suggObj)
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
@@ -28,6 +30,7 @@ def db_check():
     finally:
         if con:
             con.close()
+    return notifyJSON
 
 
 def notifyBackend(resultJSON):
@@ -37,4 +40,5 @@ def notifyBackend(resultJSON):
 
 if __name__ == "__main__":
     resultJSON = db_check()
+    print resultJSON
     notifyBackend(resultJSON)
