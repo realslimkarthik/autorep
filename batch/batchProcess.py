@@ -15,15 +15,17 @@ def db_check():
         productList = cur.fetchall()
         for i in stores:
             innerJSON = {}
-            innerJSON['store'] = str(i[0])
             innerJSON['prodList'] = []
             for j in productList:
                 cur.execute("SELECT COUNT(" + str(j[0]) + ") FROM SKU WHERE STORE_ID=" + str(i[0]) + " AND PRODUCT_ID=" + str(j[0]))
                 pIDCount = cur.fetchall()
-                if pIDCount[0][0] < j[1]:
-                    suggObj = {'product':str(j[0]), 'count': str(j[1] - pIDCount[0][0])}
-                    innerJSON['prodList'].append(suggObj)
-            notifyJSON['suggestions'].append(innerJSON)
+                if pIDCount[0][0] != 0:
+                    if pIDCount[0][0] < j[1]:
+                        suggObj = {'product':str(j[0]), 'count': str(j[1] - pIDCount[0][0])}
+                        innerJSON['prodList'].append(suggObj)
+            if innerJSON['prodList'] != []:
+                innerJSON['store'] = str(i[0])
+                notifyJSON['suggestions'].append(innerJSON)
 
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
@@ -40,7 +42,7 @@ def notifyBackend(resultJSON):
     payload = json.dumps(resultJSON)
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     print payload
-    r = requests.post(cf.NOTIFY_URL, params=payload, headers=headers)
+    r = requests.post('http://192.168.1.75:8080/autorep/notify', params=payload, headers=headers)
     print r.status_code
     print r.text
 
