@@ -6,9 +6,16 @@
 </head>
 <body>
 <h1>
-	Dashboard Page 
+	Dashboard 
 </h1>
 
-<P>  Test string from the server is ${test}. </P>
+<div> Please select a store from the list to view the inventory </div>
+
+<select name="storeList" id='storeList' >
+<c:forEach var="storeId" items="${storeList}">
+ <option value="${storeId }"> ${storeId } </option>
+</c:forEach>
+</select>
+
 </body>
 </html>
