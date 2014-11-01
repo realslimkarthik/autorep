@@ -27,16 +27,19 @@ public class LoginController {
 	 * @throws UnknownHostException 
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String home(HttpServletRequest request, HttpServletResponse response) throws UnknownHostException {
+	public String home(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		DB db = (new MongoClient("54.201.247.141",27017)).getDB("products");
 		if(db.authenticate(username, password.toCharArray())){
-			return "dashboard";
+			
+			response.sendRedirect("/dashboard");
 		}
 		else
 			return "login";
+		
+		return null;
 		
 		
 		
