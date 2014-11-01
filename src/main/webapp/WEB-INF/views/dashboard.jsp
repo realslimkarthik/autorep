@@ -4,8 +4,42 @@
 <head>
 	<title>Dashboard</title>
 </head>
+<style>
+ul {
+    
+    margin: 0;
+    padding: 0;
+    
+}
+
+	li {
+	    display: inline;
+	    
+	}
+.header{
+	text-align:center;
+	}
+	a {
+    border-radius:4px;
+    width: 60px;
+    background-color: #66CCFF;
+    padding:2px 2px 2px 2px;
+}
+	ul li a:link{
+	text-decoration: none;
+	
+	}
+	ul li a:hover {
+    text-decoration: underline;
+}
+
+
+</style>
 <body>
-<h1>
+<ul><li> <a href="dashboard"> Inventory</a></li>
+
+<li><a href="replenish">Replenishment</a></li></ul>
+<h1 class="header">
 	Dashboard 
 </h1>
 
