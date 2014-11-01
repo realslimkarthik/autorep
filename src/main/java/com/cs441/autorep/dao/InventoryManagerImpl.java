@@ -59,6 +59,8 @@ public class InventoryManagerImpl implements InventoryManager {
 
 		} finally {
 			con.close();
+			ps.close();
+			rs.close();
 		}
 
 		return results;
