@@ -35,7 +35,10 @@ public class InventoryManagerImpl implements InventoryManager{
 			i.setPackSize(rs.getString(4));
 			i.setExpiryDate(rs.getString(5));
 			i.setDiscount(rs.getString(6));
-			i.setDateOfMf(rs.getString(7));
+			
+			String dof = rs.getString(7);
+			i.setDateOfMf(dof.substring(0,dof.lastIndexOf(" ")));
+			
 			i.setMrp(rs.getString(8));
 			i.setUnitPrice(rs.getString(9));
 			i.setWeight(rs.getString(10));
