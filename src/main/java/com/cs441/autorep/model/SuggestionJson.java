@@ -6,16 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SuggestionJson {
 
-	@JsonProperty("data")
-	private JsonData jsonData;
+	Data data;
 
-	public JsonData getJsonData() {
-		return jsonData;
+	public Data getData() {
+		return data;
 	}
 
-	@JsonProperty("data")
-	public void setJsonData(JsonData jsonData) {
-		this.jsonData = jsonData;
+	public void setData(Data data) {
+		this.data = data;
 	}
 	
 }

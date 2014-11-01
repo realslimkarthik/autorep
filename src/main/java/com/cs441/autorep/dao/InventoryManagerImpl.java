@@ -49,6 +49,8 @@ public class InventoryManagerImpl implements InventoryManager{
 			results.add(i);
 		}
 		
+		con.close();
+		
 		return results;
 	}
 
