@@ -34,7 +34,7 @@ public class LoginController {
 		DB db = (new MongoClient("54.201.247.141",27017)).getDB("products");
 		if(db.authenticate(username, password.toCharArray())){
 			
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/autorep/dashboard");
 		}
 		else
 			return "login";
