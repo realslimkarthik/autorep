@@ -24,11 +24,10 @@
 	<!-- Beans for dependency injection -->
 	<beans:bean id="inventoryManager" class="com.cs441.autorep.dao.InventoryManagerImpl"/>
 	<beans:bean id="userManager" class="com.cs441.autorep.dao.UserManagerImpl"/>
-<<<<<<< HEAD
+
 	<beans:bean id="repsuggestionsManger" class="com.cs441.autorep.dao.RepSuggestionsMangerImpl"/>
-=======
+
 	<beans:bean id="notify" class="com.cs441.autorep.dao.NotifyImpl"/>
->>>>>>> a578fcc85b8df17bbadbcc3305c5ab17476d9ccc
 	
 	<context:component-scan base-package="com.cs441.autorep.controller" />
 	
