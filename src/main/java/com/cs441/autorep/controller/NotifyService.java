@@ -1,6 +1,7 @@
 package com.cs441.autorep.controller;
 
 import java.net.URLDecoder;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cs441.autorep.interfaces.Notify;
 import com.cs441.autorep.model.SuggestionJson;
 import com.cs441.autorep.model.Suggestions;
+import com.cs441.autorep.model.WarehouseSku;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,11 +31,8 @@ public class NotifyService {
 		String decodedUrl = URLDecoder.decode( jsonString, "UTF-8" );
 		decodedUrl = decodedUrl.substring(0,decodedUrl.length()-1);
 		
-	    //System.out.println(decodedUrl.substring(0,decodedUrl.length()-1));
-	    
 	    Gson gson = new GsonBuilder().create();
         SuggestionJson suggestions = gson.fromJson(decodedUrl, SuggestionJson.class);
-        //System.out.println(suggestions.getData().getSuggestions().length);
         
         Suggestions[] s = suggestions.getData().getSuggestions();
         
@@ -50,7 +49,11 @@ public class NotifyService {
         	}
         } 
 	    
-        notify.insertToRepSuggestions(s);
+        List<WarehouseSku> insertedSkuList = notify.insertToRepSuggestions(s);
+        
+        String json = new Gson().toJson(insertedSkuList);
+        
+        System.out.print(insertedSkuList.size()+"*"+json);
         
 	    return "success";
 	    
