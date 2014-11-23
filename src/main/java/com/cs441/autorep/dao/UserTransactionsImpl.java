@@ -18,8 +18,8 @@ public class UserTransactionsImpl implements UserTransactions	 {
 			
 		 try{
 			 
-			 DB db = (new MongoClient("54.201.247.141",27017)).getDB("usertrans");
-			 DBCollection collection = db.getCollection("tranlogs");
+			 DB db = (new MongoClient("54.172.105.21",27017)).getDB("translogs");
+			 DBCollection collection = db.getCollection("utranlogs");
 			 DBObject dbobject = (DBObject) JSON.parse(userlog);
 			 collection.insert(dbobject);
 			

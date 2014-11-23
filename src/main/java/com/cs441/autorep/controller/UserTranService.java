@@ -24,6 +24,7 @@ public class UserTranService {
 		decodedUrl = decodedUrl.substring(0,decodedUrl.length()-1);
 		
 		utrans.UpdateLogs(decodedUrl);
+		System.out.println(decodedUrl + "test");
 		
 		
 		
