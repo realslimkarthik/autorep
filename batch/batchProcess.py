@@ -43,6 +43,8 @@ def notifyBackend(resultJSON):
     headers = {'Content-Type': 'application/x-www-form-urlencoded'}
     print payload
     r = requests.post(cf.NOTIFY_URL, params=payload, headers=headers)
+    #r = requests.post('http://10.107.234.82:8080/autorep/notify', params=payload, headers=headers)
+    #r = requests.post('http://10.107.228.205:8080/autorep/notify', params=payload, headers=headers)
     print r.status_code
     print r.text
 

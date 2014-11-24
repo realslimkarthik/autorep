@@ -16,12 +16,9 @@ def db_reduce(pid, quant):
         count = 0
         # for i in purchasedItems:
         #     #cur.execute("DELETE FROM SKU WHERE ID=" + str(i[0]))
-        #     #reduceJSON['data']['suggestions'].append({'item':str(i[0]), 'product': str(i[1])})
-        #     #count[i[1]]['count'] += 1
-        #     #reduceJSON['data']['suggestions'].append({'product': str(i[1]), 'count': str(count[i[1]]['count'])})
-        #     count += 1
+        
         reduceJSON['product'] = randPID
-        reduceJSON['count'] = len(purchasedItems)#count
+        reduceJSON['count'] = len(purchasedItems)
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
         sys.exit(1)
@@ -61,18 +58,12 @@ if __name__ == '__main__':
         for i in cur.fetchall():
             productList.append(i[0])
         for i in range(0, num):
-            # if len(productList) < 2:
-            #     randPID = random.randrange(0, len(productList))
-            # else:
-            #     randPID = 0
-            #     break
             randPID = random.randrange(0, len(productList))
             randQ = random.randrange(0, 21)
             randProd = productList[randPID]
             productList.pop(randPID)
 
             resultJSON['data']['purchaseList'].append(db_reduce(randPID, randQ))
-            #resultJSON = db_reduce(randPID, randQ)
 
         notifyBackend(resultJSON)
     except mdb.Error, e:
