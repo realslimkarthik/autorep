@@ -3,6 +3,8 @@ package com.cs441.autorep.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.cs441.autorep.interfaces.Notify;
 import com.cs441.autorep.model.Suggestions;
@@ -11,7 +13,7 @@ import com.cs441.autorep.model.WarehouseSku;
 public class NotifyImpl implements Notify{
 
 	@Override
-	public String insertToRepSuggestions(Suggestions[] suggestions)
+	public List<WarehouseSku> insertToRepSuggestions(Suggestions[] suggestions)
 			throws Exception {
 		
 		Connection con = null;
@@ -19,6 +21,8 @@ public class NotifyImpl implements Notify{
 		ResultSet rs = null;
 		PreparedStatement insertPs = null;
 		PreparedStatement deletePs = null;
+		
+		List<WarehouseSku> jsonList = new ArrayList<WarehouseSku>();
 
 		try {
 
@@ -69,6 +73,8 @@ public class NotifyImpl implements Notify{
 						sku.setNote(rs.getString(11));
 						sku.setVendorId(rs.getInt(12));
 						
+						jsonList.add(sku);
+						
 						insertPs = con.prepareStatement("INSERT INTO `autorep`.`repsuggestions` "
 								+ "(`id`,`Product_id`,`Store_id`,`packSize`,`expiryDate`,`discount`,"
 								+ "`dateOfMf`,`mrp`,`unitPrice`,`weight`,`note`,`Vendor_id`,`Warehouse_id`)"
@@ -104,7 +110,7 @@ public class NotifyImpl implements Notify{
 
 				}
 			}
-			
+			return jsonList;
 		}
 		finally{
 			con.close();
@@ -117,7 +123,7 @@ public class NotifyImpl implements Notify{
 			if(null != deletePs)
 			deletePs.close();
 		}
-		return null;
+		
 	}
 
 }

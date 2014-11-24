@@ -31,8 +31,9 @@ public class LoginController {
 		
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		DB db = (new MongoClient("54.201.247.141",27017)).getDB("products");
-		if(db.authenticate(username, password.toCharArray())){
+		
+			DB db = (new MongoClient("54.172.105.21",27017)).getDB("products");
+	if(db.authenticate(username, password.toCharArray())){
 			
 			response.sendRedirect("/autorep/dashboard");
 		}

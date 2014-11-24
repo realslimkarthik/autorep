@@ -1,6 +1,8 @@
 package com.cs441.autorep.controller;
 
 import java.net.URLDecoder;
+import java.net.UnknownHostException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +12,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cs441.autorep.interfaces.Notify;
+import com.cs441.autorep.model.SkuLogs;
 import com.cs441.autorep.model.SuggestionJson;
 import com.cs441.autorep.model.Suggestions;
+import com.cs441.autorep.model.WarehouseSku;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoException;
+import com.mongodb.util.JSON;
 
 
 @Controller
@@ -29,11 +39,8 @@ public class NotifyService {
 		String decodedUrl = URLDecoder.decode( jsonString, "UTF-8" );
 		decodedUrl = decodedUrl.substring(0,decodedUrl.length()-1);
 		
-	    //System.out.println(decodedUrl.substring(0,decodedUrl.length()-1));
-	    
 	    Gson gson = new GsonBuilder().create();
         SuggestionJson suggestions = gson.fromJson(decodedUrl, SuggestionJson.class);
-        //System.out.println(suggestions.getData().getSuggestions().length);
         
         Suggestions[] s = suggestions.getData().getSuggestions();
         
@@ -50,7 +57,28 @@ public class NotifyService {
         	}
         } 
 	    
-        notify.insertToRepSuggestions(s);
+        List<WarehouseSku> insertedSkuList = notify.insertToRepSuggestions(s);
+        
+        SkuLogs skuLogs = new SkuLogs();
+        
+        skuLogs.skuList = insertedSkuList;
+        
+        String json = new Gson().toJson(skuLogs);
+        
+       try{ 
+        DB db = (new MongoClient("54.172.105.21",27017)).getDB("translogs");
+		 DBCollection collection = db.getCollection("wtranlogs");
+		 DBObject dbobject = (DBObject) JSON.parse(json);
+		 collection.insert(dbobject);
+       }
+       catch (UnknownHostException e) {
+			e.printStackTrace();
+		} catch (MongoException e) {
+			e.printStackTrace();
+		}
+		System.out.println("Done");
+        
+        System.out.print(insertedSkuList.size()+"*"+json);
         
 	    return "success";
 	    

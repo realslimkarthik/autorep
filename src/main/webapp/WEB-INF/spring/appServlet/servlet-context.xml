@@ -28,6 +28,7 @@
 	<beans:bean id="repsuggestionsManger" class="com.cs441.autorep.dao.RepSuggestionsMangerImpl"/>
 
 	<beans:bean id="notify" class="com.cs441.autorep.dao.NotifyImpl"/>
+	<beans:bean id="utrans" class="com.cs441.autorep.dao.UserTransactionsImpl"/>
 	
 	<context:component-scan base-package="com.cs441.autorep.controller" />
 	
