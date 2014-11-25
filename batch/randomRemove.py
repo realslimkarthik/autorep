@@ -36,7 +36,7 @@ def notifyBackend(resultJSON):
     print payload
     #r = requests.post(cf.REDUCE_URL, params=payload, headers=header)
     #r = requests.post('http://54.172.105.21/tranlogs', params=payload, headers=header)
-    r = requests.post('http://10.107.228.205:8080/autorep/tranlogs/', params=payload, headers=header)
+    r = requests.post('http://10.0.0.9:8080/autorep/tranlogs/', params=payload, headers=header)
 
     print r.status_code
 
@@ -45,7 +45,7 @@ def deferNotify():
 
 if __name__ == '__main__':
     num = random.randrange(0, 3)
-    resultJSON = {'salesData': {'prodList': []}}
+    resultJSON = {'salesData': {'details': [] }}
     innerJSON = {}
     stores = []
     productList = []
@@ -57,23 +57,25 @@ if __name__ == '__main__':
             stores.append(i[0])
         randSID = random.randrange(0, len(stores))
         randStore = stores[randSID]
-        resultJSON['salesData'] = {'prodList': [], 'store': str(randStore)}
+        resultJSON['salesData'] = { 'details': []}
+        innerJSON = {'prodList': [], 'store': str(randStore)}
 
         cur.execute("SELECT ID FROM PRODUCT")
         for i in cur.fetchall():
             productList.append(i[0])
         for i in range(0, num):
-            if len(productList) == 0:
+            if len(productList) < 2:
                 break
             randPID = random.randrange(1, len(productList))
             randQ = random.randrange(0, 21)
             randProd = productList[randPID]
             productList.pop(randPID)
-            resultJSON['salesData']['prodList'].append(db_reduce(randPID, randQ))
+            innerJSON['prodList'].append(db_reduce(randPID, randQ))
 
-        if len(resultJSON['salesData']['prodList']) == 0:
+        if len(innerJSON['prodList']) == 0:
             deferNotify()
         else:
+            resultJSON['salesData']['details'].append(innerJSON)
             notifyBackend(resultJSON)
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
