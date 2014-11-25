@@ -34,15 +34,19 @@ def notifyBackend(resultJSON):
     header = {'Content-Type': 'application/x-www-form-urlencoded'}
 
     print payload
-    #r = requests.post('http://54.172.105.21/tranlogs', params=payload)
+    #r = requests.post(cf.REDUCE_URL, params=payload, headers=header)
+    #r = requests.post('http://54.172.105.21/tranlogs', params=payload, headers=header)
     r = requests.post('http://10.107.228.205:8080/autorep/tranlogs/', params=payload, headers=header)
 
     print r.status_code
 
+def deferNotify():
+    pass
 
 if __name__ == '__main__':
     num = random.randrange(0, 3)
-    resultJSON = {}
+    resultJSON = {'salesData': {'prodList': []}}
+    innerJSON = {}
     stores = []
     productList = []
     try:
@@ -53,19 +57,24 @@ if __name__ == '__main__':
             stores.append(i[0])
         randSID = random.randrange(0, len(stores))
         randStore = stores[randSID]
-        resultJSON['data'] = {'store': str(randStore), 'purchaseList':[]}
+        resultJSON['salesData'] = {'prodList': [], 'store': str(randStore)}
+
         cur.execute("SELECT ID FROM PRODUCT")
         for i in cur.fetchall():
             productList.append(i[0])
         for i in range(0, num):
-            randPID = random.randrange(0, len(productList))
+            if len(productList) == 0:
+                break
+            randPID = random.randrange(1, len(productList))
             randQ = random.randrange(0, 21)
             randProd = productList[randPID]
             productList.pop(randPID)
+            resultJSON['salesData']['prodList'].append(db_reduce(randPID, randQ))
 
-            resultJSON['data']['purchaseList'].append(db_reduce(randPID, randQ))
-
-        notifyBackend(resultJSON)
+        if len(resultJSON['salesData']['prodList']) == 0:
+            deferNotify()
+        else:
+            notifyBackend(resultJSON)
     except mdb.Error, e:
         print "Error %d: %s" % (e.args[0], e.args[1])
         sys.exit(1)
