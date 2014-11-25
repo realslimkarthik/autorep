@@ -2,9 +2,8 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Dashboard</title>
-</head>
-<style>
+	<title>User Transaction Logs</title>
+	<style>
 ul {
     
     margin: 0;
@@ -19,7 +18,7 @@ ul {
 .header{
 	text-align:center;
 	}
-	a {
+	ul li a {
     border-radius:4px;
     width: 60px;
     background-color: #66CCFF;
@@ -32,26 +31,27 @@ ul {
 	ul li a:hover {
     text-decoration: underline;
 }
-
-
-</style>
+	</style>
+	
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js">
+		
+</script>
+</head>
 <body>
+
 <ul><li> <a href="dashboard"> Inventory</a></li>
 
 <li><a href="replenish">Replenishment</a></li>
 <li><a href="utlogs">Transaction Logs</a></li>
 <li><a href="wtlogs">Warehouse Logs</a></li>
 <li><a href="stockInventory">Stock Report</a></li>
-
 </ul>
-<h1 class="header">
-	Dashboard 
+<h1 class="header" >
+	Transaction Logs 
 </h1>
 
-<div> Please select a store from the list to view the inventory </div>
-
-<form name='refreshInventory' action='showInventory' method="post">
-
+<p>Please select store from the list</p>
+<form name="viewutlogs" action="showutlogs" method="post">
 <select name="storeList" id='storeList'>
 <c:forEach var="storeId" items="${storeList}">
 <c:choose>
@@ -64,48 +64,21 @@ ul {
 </c:choose>
 </c:forEach>
 </select>
-
-<input type='submit' value='Display Inventory' />
+<input type='button' value='Show sales' />
 </form>
 
-
-<div id='inventoryTable'>
+<div id='utogstable'>
 <table border='1'>
 <tr>
-<th>SKU ID</th>
+<th>Store ID</th>
 <th>Product ID</th>
-<th>Product Name</th>
-<th>Pack Size</th>
-<th>Expiry Date</th>
-<th>Discount</th>
-<th>Manufacturing Date</th>
-<th>MRP</th>
-<th>Price</th>
-<th>Weight</th>
-<th>Note</th>
-<th>Vendor ID</th>
-<th>Warehouse ID</th>
+<th>No. of Items</th>
 </tr>
-<c:forEach var="skuItem" items="${inventoryList}">
- <tr>
- <td>${skuItem.skuId }</td>
- <td>${skuItem.productId }</td>
- <td>${skuItem.productName }</td>
- <td>${skuItem.packSize }</td>
- <td>${skuItem.expiryDate }</td>
- <td>${skuItem.discount }</td>
- <td>${skuItem.dateOfMf }</td>
- <td>${skuItem.mrp }</td>
- <td>${skuItem.unitPrice }</td>
- <td>${skuItem.weight }</td>
- <td>${skuItem.note }</td>
- <td>${skuItem.vendorId }</td>
- <td>${skuItem.warehouseId }</td>
- 
- </tr>
-</c:forEach>
-</table>
-</div>
+<tr>
+<td>9001</td>
+<td>100</td>
+<td>5</td>
+</tr>
 
 </body>
 </html>

@@ -36,7 +36,12 @@ ul {
 <body>
 <ul><li> <a href="dashboard"> Inventory</a></li>
 
-<li><a href="replenish">Replenishment</a></li></ul>
+<li><a href="replenish">Replenishment</a></li>
+<li><a href="utlogs">Transaction Logs</a></li>
+<li><a href="wtlogs">Warehouse Logs</a></li>
+<li><a href="stockInventory">Stock Report</a></li>
+
+</ul>
 <h1 class="header" >
 	Replenish 
 </h1>

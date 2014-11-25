@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Home</title>
+	<title>Replenish</title>
 	<style>
 ul {
     
@@ -40,7 +40,12 @@ ul {
 <body>
 <ul><li> <a href="dashboard"> Inventory</a></li>
 
-<li><a href="replenish">Replenishment</a></li></ul>
+<li><a href="replenish">Replenishment</a></li>
+<li><a href="utlogs">Transaction Logs</a></li>
+<li><a href="wtlogs">Warehouse Logs</a></li>
+<li><a href="stockInventory">Stock Report</a></li>
+
+</ul>
 <h1 class="header" >
 	Replenish 
 </h1>
@@ -109,7 +114,7 @@ ul {
 <br/>
 <form name="applyRepSuggestion" action="applyReplenish" method="post" id="applyRepSuggestion">
 <input type="hidden" name="wskids" id="getids"/>
-<input type='button' value='Apply Suggestions' id="apply"/>
+<input type='button' value='Approve' id="apply"/>
 </form>
 
 
