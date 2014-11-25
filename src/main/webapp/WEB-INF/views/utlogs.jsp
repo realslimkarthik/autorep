@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>  
+<%@ page session="false" %> 
 <html>
 <head>
 	<title>User Transaction Logs</title>
@@ -31,6 +32,13 @@ ul {
 	ul li a:hover {
     text-decoration: underline;
 }
+
+#utogstable{
+	padding-left:25%;
+	padding-right:25%;
+}
+
+
 	</style>
 	
 	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js">
@@ -74,11 +82,21 @@ ul {
 <th>Product ID</th>
 <th>No. of Items</th>
 </tr>
+
+<c:forEach var="details" items="${dtlslist}">
 <tr>
-<td>9001</td>
-<td>100</td>
-<td>5</td>
+<td>${details.store}</td>
+
+<c:forEach begin="0" end="${fn:length(details.prodList) - 1}" var="index">
+   
+      <td><c:out value="${details.prodList[index].product}"/></td>
+      <td><c:out value="${details.prodList[index].count}"/></td>
+      
+</c:forEach>
 </tr>
+</c:forEach>
+</table>
+</div>
 
 </body>
 </html>
