@@ -62,6 +62,8 @@ public class DashboardController {
 		
 		ModelAndView model = new ModelAndView("dashboard");
 		model.addObject("storeList", storeList );
+		
+		
 		model.addObject("inventoryList",getInventoryList(currentStore));
 		model.addObject("currentStore",currentStore);
 		

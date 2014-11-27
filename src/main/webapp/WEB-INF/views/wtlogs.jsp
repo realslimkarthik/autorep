@@ -3,7 +3,7 @@
 <%@ page session="false" %> 
 <html>
 <head>
-	<title>User Transaction Logs</title>
+	<title>Warehouse Transaction Logs</title>
 	<style>
 ul {
     
@@ -33,7 +33,7 @@ ul {
     text-decoration: underline;
 }
 
-#utogstable{
+#wtlogstable{
 	padding-left:25%;
 	padding-right:25%;
 }
@@ -55,11 +55,11 @@ ul {
 <li><a href="stockInventory">Stock Report</a></li>
 </ul>
 <h1 class="header" >
-	Transaction Logs 
+	Warehouse Replenish Requests Logs 
 </h1>
 
 <p>Please select store from the list</p>
-<form name="viewutlogs" action="showutlogs" method="post">
+<form name="viewwtlogs" action="showwtlogs" method="post">
 <select name="storeList" id='storeList'>
 <c:forEach var="storeId" items="${storeList}">
 <c:choose>
@@ -72,28 +72,43 @@ ul {
 </c:choose>
 </c:forEach>
 </select>
-<input type='submit' value='Show sales' />
+<input type='submit' value='Show Requests' />
 </form>
 
-<div id='utogstable'>
+<div id='wtlogstable'>
 <table border='1'>
 <tr>
+<th>WSKU ID</th>
 <th>Store ID</th>
 <th>Product ID</th>
-<th>No. of Items</th>
+<th>Pack Size</th>
+<th>Expiry Date</th>
+<th>Discount</th>
+<th>Manufacturing Date</th>
+<th>MRP</th>
+<th>Price</th>
+<th>Weight</th>
+<th>Note</th>
+<th>Vendor ID</th>
+<th>Warehouse ID</th>
 </tr>
-
-<c:forEach var="details" items="${dtlslist}">
-<tr>
-<td>${details.store}</td>
-
-<c:forEach begin="0" end="${fn:length(details.prodList) - 1}" var="index">
-   
-      <td><c:out value="${details.prodList[index].product}"/></td>
-      <td><c:out value="${details.prodList[index].count}"/></td>
-      
-</c:forEach>
-</tr>
+<c:forEach var="repItem" items="${whlist}">
+ <tr>
+ 
+ <td>${repItem.skuId }</td>
+ <td>${repItem.storeId }</td>
+ <td>${repItem.productId }</td>
+  <td>${repItem.packSize }</td>
+ <td>${repItem.expiryDate }</td>
+ <td>${repItem.discount }</td>
+ <td>${repItem.dateOfMf }</td>
+ <td>${repItem.mrp }</td>
+ <td>${repItem.unitPrice }</td>
+ <td>${repItem.weight }</td>
+ <td>${repItem.note }</td>
+ <td>${repItem.vendorId }</td>
+ <td>${repItem.warehouseId }</td>
+ </tr>
 </c:forEach>
 </table>
 </div>
