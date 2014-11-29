@@ -35,7 +35,6 @@ public class DashboardController {
 		logger.info("Welcome to dashboard");
 		
 		HttpSession session = req.getSession();
-		session.setAttribute("userId", "1");
 		
 		ArrayList<String> storeList = userManager.getUserStoreId((String)session.getAttribute("userId"));
 		String currentStore = storeList.get(0);
