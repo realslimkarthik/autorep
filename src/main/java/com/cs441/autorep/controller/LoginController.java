@@ -24,14 +24,17 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 * @throws UnknownHostException 
-	 */
 	
 	@Autowired
 	UserManager userManager;
 	
+	/**
+	 * Authenticates a user. Uses MongoDB for authentication.
+	 * @param request
+	 * @param response
+	 * @return String (redirects to `dashboard.jsp` on successful login, or redirects to `login.jsp` on unsuccessful login)
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String home(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
@@ -55,6 +58,12 @@ public class LoginController {
 
 	}
 
+	/**
+	 * Redirects the user to login page.
+	 * @param request
+	 * @param response
+	 * @return String (redirects to `login.jsp`)
+	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String homeShow(HttpServletRequest request, HttpServletResponse response) {
 

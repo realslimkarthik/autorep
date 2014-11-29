@@ -30,6 +30,13 @@ public class DashboardController {
 	@Autowired
 	InventoryManager inventoryManager;
 	
+	/**
+	 * This method is used to display the inventory list after login
+	 * @param req
+	 * @param res
+	 * @return ModelAndView (Redirects to dashboard.jsp)
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/dashboard", method = RequestMethod.GET)
 	public ModelAndView showDashboard(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("Welcome to dashboard");
@@ -49,6 +56,13 @@ public class DashboardController {
 		return model;
 	}
 	
+	/**
+	 * This method is used to display inventory page according to the selected `Store ID`.
+	 * @param req
+	 * @param res
+	 * @return ModelAndView (Redirects to dashboard.jsp)
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/showInventory", method = RequestMethod.POST)
 	public ModelAndView showInventory(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("Inside showInventory method => DashboardController");
@@ -69,6 +83,12 @@ public class DashboardController {
 		return model;
 	}
 	
+	/** 
+	 * This private method fetches the Inventory list from the database according to the parameter `storeId`
+	 * @param storeId
+	 * @return inventoryList (ArrayList containing Inventory details)
+	 * @throws Exception
+	 */
 	private ArrayList<Inventory> getInventoryList(String storeId) throws Exception{
 		
 		ArrayList<Inventory> inventoryList = inventoryManager.getInventory(storeId);
