@@ -15,8 +15,11 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	
 	/**
-	 * Simply selects the home view to render by returning its name.
+	 * This method redirects user to the login page when a GET request is made to the application URL
+	 * @param model
+	 * @return
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {

@@ -40,7 +40,7 @@ public class NotifyImpl implements Notify{
 							+ "`warehousesku`.`Warehouse_id`,`warehousesku`.`packSize`,`warehousesku`.`expiryDate`,"
 							+ "`warehousesku`.`discount`,`warehousesku`.`dateOfMf`,`warehousesku`.`mrp`,"
 							+ "`warehousesku`.`unitPrice`,`warehousesku`.`weight`,`warehousesku`.`note`,"
-							+ "`warehousesku`.`Vendor_id` FROM `autorep`.`warehousesku` where Product_id=?");
+							+ "`warehousesku`.`Vendor_id` FROM `autorep2`.`warehousesku` where Product_id=?");
 					
 					ps.setInt(1, Integer.parseInt( suggestions[i].getProdList()[j].getProduct() ) );
 					
@@ -75,7 +75,7 @@ public class NotifyImpl implements Notify{
 						
 						jsonList.add(sku);
 						
-						insertPs = con.prepareStatement("INSERT INTO `autorep`.`repsuggestions` "
+						insertPs = con.prepareStatement("INSERT INTO `autorep2`.`repsuggestions` "
 								+ "(`id`,`Product_id`,`Store_id`,`packSize`,`expiryDate`,`discount`,"
 								+ "`dateOfMf`,`mrp`,`unitPrice`,`weight`,`note`,`Vendor_id`,`Warehouse_id`)"
 								+ " VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)");
@@ -99,7 +99,7 @@ public class NotifyImpl implements Notify{
 						System.out.println("-- Warehouse SKU `"+sku.getSkuId()+"` is being replenished to store `"+sku.getStoreId()+"`."
 								+ " It has product `"+sku.getProductId()+"` --");
 						
-						deletePs = con.prepareStatement("DELETE from `autorep`.`warehousesku` where id=?");
+						deletePs = con.prepareStatement("DELETE from `autorep2`.`warehousesku` where id=?");
 						deletePs.setInt(1, sku.getSkuId());
 						
 						deletePs.executeUpdate();

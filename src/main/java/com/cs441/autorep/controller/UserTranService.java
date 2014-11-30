@@ -17,6 +17,11 @@ public class UserTranService {
 	@Autowired
 	UserTransactions utrans;
 	
+	/**
+	 * Used to update User Transaction (buying) logs into MongoDB NoSQL database.
+	 * @param jsonString
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/tranlogs", method = RequestMethod.POST)
 	@ResponseBody
 	public void insertUserTranLogs(@RequestBody String jsonString) throws Exception{

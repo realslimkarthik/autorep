@@ -32,6 +32,13 @@ public class NotifyService {
 	@Autowired
 	Notify notify;
 	
+	/**
+	 * Web service which accepts replenishment needs in JSON format, and calculates which products should be replenished
+	 * from the WarehouseSku. It also writes the replenishment findings to a log in MongoDB.
+	 * @param jsonString
+	 * @return (returns `success` on success)
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertUser(@RequestBody String jsonString) throws Exception {
