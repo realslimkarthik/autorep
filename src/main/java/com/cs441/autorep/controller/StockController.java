@@ -30,6 +30,13 @@ public class StockController {
 	@Autowired
 	UserManager userManager;
 	
+	/**
+	 * This method is used to displaying the inventory stock.
+	 * @param req
+	 * @param res
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/stockInventory", method = RequestMethod.GET)
 	public ModelAndView showDashboard(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		logger.info("Welcome to dashboard");
