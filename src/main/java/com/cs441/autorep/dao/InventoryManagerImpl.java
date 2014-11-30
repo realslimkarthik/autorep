@@ -24,8 +24,8 @@ public class InventoryManagerImpl implements InventoryManager {
 			con = ConnectionFactory.getConnection();
 
 			String query = "SELECT s.`id`, s.`Product_id`, p.name,  s.`packSize`, s.`expiryDate`, s.`discount`, s.`dateOfMf`, "
-					+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep`.`sku` s "
-					+ "left outer join `autorep`.`product` p on s.`Product_id`=p.`id` where s.Store_id = ? order by product_id";
+					+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep2`.`sku` s "
+					+ "left outer join `autorep2`.`product` p on s.`Product_id`=p.`id` where s.Store_id = ? order by product_id";
 
 			ps = con.prepareStatement(query);
 			ps.setInt(1, Integer.parseInt(storeId));

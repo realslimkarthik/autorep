@@ -17,7 +17,7 @@ public class RepSuggestionsMangerImpl implements RepSuggestionsManager{
 Connection con = ConnectionFactory.getConnection();
 		
 		String query = "SELECT s.`id`, s.`Product_id`, s.`Store_id`,  s.`packSize`, s.`expiryDate`, s.`discount`, s.`dateOfMf`, "
-				+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep`.`repsuggestions` s "
+				+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep2`.`repsuggestions` s "
 				+ "where s.Store_id = ?";
 		
 		PreparedStatement ps = con.prepareStatement(query);
@@ -62,12 +62,12 @@ Connection con = ConnectionFactory.getConnection();
 	public void updateReplenish(String wskuids) throws Exception{
 		
 		Connection con = ConnectionFactory.getConnection();
-		String query3 = " delete from autorep.repsuggestions where id = ?";
+		String query3 = " delete from autorep2.repsuggestions where id = ?";
 		String query1 = "SELECT s.`id`, s.`Product_id`, s.`Store_id`,  s.`packSize`, s.`expiryDate`, s.`discount`, s.`dateOfMf`, "
-				+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep`.`repsuggestions` s "
+				+ "s.`mrp`, s.`unitPrice`,s.`weight`, s.`note`, s.`Vendor_id`, s.`Warehouse_id` FROM `autorep2`.`repsuggestions` s "
 				+ "where s.id = ?";
 		
-		String query2 = "INSERT INTO `autorep`.`sku` (`id`, `Product_id`, `Store_id`, `packSize`, `expiryDate`, `discount`, `dateOfMf`, `mrp`, `unitPrice`, `weight`, `note`, `Vendor_id`, `Warehouse_id`)"
+		String query2 = "INSERT INTO `autorep2`.`sku` (`id`, `Product_id`, `Store_id`, `packSize`, `expiryDate`, `discount`, `dateOfMf`, `mrp`, `unitPrice`, `weight`, `note`, `Vendor_id`, `Warehouse_id`)"
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		PreparedStatement ps1 = con.prepareStatement(query1);

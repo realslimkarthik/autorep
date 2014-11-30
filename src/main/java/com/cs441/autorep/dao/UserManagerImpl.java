@@ -22,7 +22,7 @@ public class UserManagerImpl implements UserManager {
 
 			con = ConnectionFactory.getConnection();
 
-			ps = con.prepareStatement("select Store_id from autorep.managerpermissions where Manager_id = ?");
+			ps = con.prepareStatement("select Store_id from autorep2.managerpermissions where Manager_id = ?");
 
 			ps.setInt(1, Integer.parseInt(userId));
 			rs = ps.executeQuery();
@@ -57,7 +57,7 @@ public class UserManagerImpl implements UserManager {
 
 			con = ConnectionFactory.getConnection();
 
-			ps = con.prepareStatement("select id from autorep.person where username = ?");
+			ps = con.prepareStatement("select id from autorep2.person where username = ?");
 
 			ps.setString(1, username);
 			rs = ps.executeQuery();

@@ -53,7 +53,7 @@ public class StockController {
 		
 		ArrayList<String> storeList = userManager.getUserStoreId((String)session.getAttribute("userId"));
 		
-		String query = "SELECT product_id, count(id) FROM autorep.sku where store_id = ? GROUP BY product_id";
+		String query = "SELECT product_id, count(id) FROM autorep2.sku where store_id = ? GROUP BY product_id";
 		con = ConnectionFactory.getConnection();
 		ps = con.prepareStatement(query);
 		

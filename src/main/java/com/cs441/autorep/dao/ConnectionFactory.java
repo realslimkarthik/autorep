@@ -6,7 +6,7 @@ import java.sql.SQLException;
 public class ConnectionFactory {
 	// JDBC driver name and database URL
 	   static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-	   static final String DB_URL = "jdbc:mysql://54.172.105.21/autorep";
+	   static final String DB_URL = "jdbc:mysql://54.172.105.21/autorep2";
 
 	//  Database credentials
 	   static final String USER = "root";
