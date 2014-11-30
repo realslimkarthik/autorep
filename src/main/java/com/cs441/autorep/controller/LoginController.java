@@ -2,6 +2,7 @@ package com.cs441.autorep.controller;
 
 import java.net.UnknownHostException;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,10 +45,12 @@ public class LoginController {
 		DB db = (new MongoClient("54.172.105.21",27017)).getDB("products");
 		if(db.authenticate(username, password.toCharArray())){
 
+			//
+			username = "manager";
 			int userId = userManager.getUserId(username);
-			request.getSession().setAttribute("userId", String.valueOf(userId));
+			//request.getSession().setAttribute("userId", String.valueOf(userId));
 
-			response.sendRedirect("/autorep/dashboard");
+			response.sendRedirect("/dashboard");
 		}
 		else
 			return "login";
