@@ -11,7 +11,7 @@ def db_check():
         cur = con.cursor()
         cur.execute("SELECT ID FROM autorep2.STORE")
         stores = cur.fetchall()
-        cur.execute("SELECT ID, MINSHELFQUANTITY FROM autorep2.PRODUC limit 5")
+        cur.execute("SELECT ID, MINSHELFQUANTITY FROM autorep2.PRODUCT
         productList = cur.fetchall()
         for i in stores:
             innerJSON = {}
