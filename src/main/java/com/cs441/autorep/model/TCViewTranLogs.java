@@ -9,7 +9,7 @@ public class TCViewTranLogs {
 	SkuWLogs obj = new SkuWLogs();
 	
 	@Test
-	void testskuId(){
+	public void testskuId(){
 		
 		obj.setSkuId(1009);
 		int result = obj.getSkuId();
@@ -17,7 +17,7 @@ public class TCViewTranLogs {
 	}
 	
 	@Test
-	void teststoreId()
+	public void teststoreId()
 	{
 		
 		obj.setStoreId(9001);
