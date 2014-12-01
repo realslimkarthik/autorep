@@ -46,9 +46,9 @@ public class LoginController {
 		if(db.authenticate(username, password.toCharArray())){
 
 			//
-			username = "manager";
+			//username = "manager";
 			int userId = userManager.getUserId(username);
-			//request.getSession().setAttribute("userId", String.valueOf(userId));
+			request.getSession().setAttribute("userId", String.valueOf(userId));
 
 			response.sendRedirect("/dashboard");
 		}
