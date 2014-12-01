@@ -42,9 +42,7 @@ public class NotifyService {
 	@RequestMapping(value = "/notify", method = RequestMethod.POST)
 	@ResponseBody
 	public String insertUser(@RequestBody String jsonString) throws Exception {
-	    
-		System.out.println("***Inside notify***");
-		
+
 		String decodedUrl = URLDecoder.decode( jsonString, "UTF-8" );
 		
 		System.out.println(decodedUrl);
