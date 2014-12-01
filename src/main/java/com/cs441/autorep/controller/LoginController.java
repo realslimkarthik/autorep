@@ -50,7 +50,7 @@ public class LoginController {
 			int userId = userManager.getUserId(username);
 			request.getSession().setAttribute("userId", String.valueOf(userId));
 
-			response.sendRedirect("/dashboard");
+			response.sendRedirect("/autorep/dashboard");
 		}
 		else
 			return "login";
