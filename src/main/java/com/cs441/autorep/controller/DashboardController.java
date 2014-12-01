@@ -43,14 +43,10 @@ public class DashboardController {
 		
 		HttpSession session = req.getSession();
 		
-		//
-		//session.setAttribute("userId","1");
-		
 		ArrayList<String> storeList = userManager.getUserStoreId((String)session.getAttribute("userId"));
 		String currentStore = storeList.get(0);
 		
 		session.setAttribute("currentStore",currentStore);
-		session.setAttribute("currentStore","9001");
 		
 		ModelAndView model = new ModelAndView("dashboard");
 		model.addObject("storeList", storeList );
